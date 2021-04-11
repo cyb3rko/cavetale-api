@@ -1,9 +1,8 @@
-import kotlinx.coroutines.runBlocking
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 
-class CavetaleUser(name: String) {
-    lateinit var elements: Elements
+class CavetaleUser(val name: String) {
+    var elements: Elements
     val balance: String
         get() = elements[0].text()
     val marketEarnings: String
@@ -18,16 +17,12 @@ class CavetaleUser(name: String) {
         get() = elements[5].text()
 
     init {
-        runBlocking {
-            val doc = Jsoup.connect("https://cavetale.com/market/player.php?name=Cyb3rKo").get()
-            elements = doc.getElementsByClass("price")
-        }
+        val doc = Jsoup.connect("https://cavetale.com/market/player.php?name=$name").get()
+        elements = doc.getElementsByClass("price")
     }
 
     fun update() {
-        runBlocking {
-            val doc = Jsoup.connect("https://cavetale.com/market/player.php?name=Cyb3rKo").get()
-            elements = doc.getElementsByClass("price")
-        }
+        val doc = Jsoup.connect("https://cavetale.com/market/player.php?name=$name").get()
+        elements = doc.getElementsByClass("price")
     }
 }
