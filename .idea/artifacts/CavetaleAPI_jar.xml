@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="CavetaleAPI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CavetaleAPI_jar</output-path>
+    <root id="archive" name="CavetaleAPI.jar">
+      <element id="module-output" name="CavetaleAPI" />
+    </root>
+  </artifact>
+</component>
