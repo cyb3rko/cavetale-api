@@ -1,3 +1,5 @@
+package com.cyb3rko.cavetaleapi
+
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 

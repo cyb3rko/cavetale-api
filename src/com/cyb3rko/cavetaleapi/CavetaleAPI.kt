@@ -1,3 +1,5 @@
+package com.cyb3rko.cavetaleapi
+
 import org.jsoup.Jsoup
 import java.util.logging.Logger
 
