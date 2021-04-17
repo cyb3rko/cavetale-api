@@ -41,4 +41,8 @@ class CavetaleAPI {
         }
         return list
     }
+
+    fun getAvatarLink(name: String) = "https://minotar.net/helm/$name/500.png"
+
+    fun getBustLink(name: String) = "https://minotar.net/armor/bust/$name/500.png"
 }
