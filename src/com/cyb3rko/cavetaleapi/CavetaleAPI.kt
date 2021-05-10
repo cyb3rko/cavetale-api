@@ -69,6 +69,31 @@ class CavetaleAPI {
         return list
     }
 
+    fun getMarketResults(htmlSource: String): List<List<String>> {
+        val list = mutableListOf<List<String>>()
+        try {
+            val doc = Jsoup.parse(htmlSource)
+            val elements = doc.select("#result > tbody > *")
+            elements.forEach {
+                val moneyElements = it.select(".price").eachText().toTypedArray()
+                val seller = it.select(".playername").text()
+                val sellItem = it.select(".offer").text()
+                val amount = it.select(".amount").text()
+                list.add(listOf(seller, sellItem, amount, *moneyElements))
+            }
+        } catch (e: Exception) {
+            val log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
+            log.severe("Failed website parsing with exception: ${e.message}")
+        }
+        return list
+    }
+
+    fun getSearchPhrase(item: String, player: String = "", sell: Boolean = false): String {
+        val processedItem = item.replace(" ", "+")
+        val sellSuffix = if (sell) "&type=sell" else ""
+        return "https://cavetale.com/market/?q=$processedItem&p=$player$sellSuffix"
+    }
+
     fun getAvatarLink(name: String, size: Int) = "https://minotar.net/helm/$name/$size.png"
 
     fun getBustLink(name: String, size: Int) = "https://minotar.net/armor/bust/$name/$size.png"
