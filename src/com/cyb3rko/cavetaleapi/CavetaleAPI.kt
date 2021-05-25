@@ -158,5 +158,7 @@ class CavetaleAPI {
 
     fun getAvatarLink(name: String, size: Int) = "https://minotar.net/helm/$name/$size.png"
 
+    fun get3dAvatarLink(name: String, size: Int) = "https://cravatar.eu/helmhead/$name/$size.png"
+
     fun getBustLink(name: String, size: Int) = "https://minotar.net/armor/bust/$name/$size.png"
 }
