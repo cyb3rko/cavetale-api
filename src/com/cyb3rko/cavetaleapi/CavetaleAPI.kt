@@ -161,4 +161,34 @@ class CavetaleAPI {
     fun get3dAvatarLink(name: String, size: Int) = "https://cravatar.eu/helmhead/$name/$size.png"
 
     fun getBustLink(name: String, size: Int) = "https://minotar.net/armor/bust/$name/$size.png"
+
+    fun getNameUuidLink(name: String) = "https://api.mojang.com/users/profiles/minecraft/$name"
+
+    fun getNameUuid(htmlSource: String): String {
+        var uuid = ""
+        try {
+            uuid = htmlSource.split("\"id\":\"")[1].removeSuffix("\"}</pre></body></head>")
+        } catch (e: Exception) {
+            val log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
+            log.severe("Failed uuid parsing with exception: ${e.message}")
+        }
+        return uuid
+    }
+
+    fun getNameHistoryLink(uuid: String) = "https://api.mojang.com/user/profiles/$uuid/names"
+
+    fun getNameHistory(htmlSource: String): List<String> {
+        var names = mutableListOf<String>()
+        try {
+            names = htmlSource.split("name\":\"").drop(1).toMutableList()
+            names.forEachIndexed { index, s ->
+                names[index] = s.split("\"")[0]
+            }
+            names.reverse()
+        } catch (e: Exception) {
+            val log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
+            log.severe("Failed name history parsing with exception: ${e.message}")
+        }
+        return names
+    }
 }
