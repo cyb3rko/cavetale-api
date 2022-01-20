@@ -4,7 +4,13 @@ import org.jsoup.Jsoup
 import java.util.logging.Logger
 
 class CavetaleAPI {
-    fun getUser(name: String) = CavetaleUser(name)
+    fun getUser(name: String): CavetaleUser? {
+        return try {
+            CavetaleUser(name)
+        } catch (e: Exception) {
+            null
+        }
+    }
 
     fun getRichlist(limit: Int): List<Pair<String, String>> {
         if (limit < 1 || limit > 100) throw RuntimeException("Limit out of bounds")
